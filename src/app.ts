@@ -2,6 +2,8 @@ import { httpListener } from '@marblejs/core';
 import { logger$ } from '@marblejs/middleware-logger';
 import { bodyParser$ } from '@marblejs/middleware-body';
 import { api$ } from './api.effects';
+import {webSocketListener} from "@marblejs/websockets";
+import {helloEffects, mousemove$} from "./hello.effect";
 
 const middlewares = [
     logger$(),
@@ -12,13 +14,12 @@ const middlewares = [
 ];
 
 const effects = [
-    api$,
+    ...helloEffects
     // endpoint2$
     // endpoint3$
     // ...
 ];
 
-export const listener = httpListener({
-    middlewares,
+export const listener = webSocketListener({
     effects,
 });
